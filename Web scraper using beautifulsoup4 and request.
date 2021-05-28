@@ -1,0 +1,48 @@
+#project2: web scraper using beautifulsoup4 and request
+
+def amenty(amenties_list):
+	import requests
+ 
+
+import argparse
+
+parser=argparse.ArgumentParser() 
+parser.add_argument = ("--page_num_max")
+help= int(input("enter the number of pages to parse : "))
+
+parser.add_argument = int(input("dbname",help,"enter the name of db")) 
+args=parser.parse_args()
+oyo_url="https://www.oyorooms.com/?modal=quickLogin"
+
+page_num_MAX= args.page_num_max
+scraped_info_list=[]
+connect.connect(args.dbname) 
+for page_num in range (1,page_num_MAX):
+	url=oyo_url+str(page_num)
+	print("GET request for:"+url) 
+	req=requests.get(url) 
+	connect=req.content
+	soup=beautifulsoup(content ,"html.paraser")
+	all_hotels=souo.find_all("div",{"class":"hotel cardlisting"}) 
+	for hotek in all_hotels: 
+	    hotel_dict={} 
+	    hotel_dict["name"]=hotel.find("h3",{"calss":"listingHotelDiscription_hotelName"}).text 
+	hotel_dict["address"]=hotel.find("span",{"itempop":"street Address"}).text
+	hotel_dict["price"]=hotel.find("span",{"class":"Listingprice_finalprice"}).text
+	hotel_dict["rating"]=hotel.find("span",{"calss":"hotelrating__ratingsummary"}).text
+	
+	raise AttributeError
+hotel_dict["rating"]=noneparent_amenities_element=hotel.find("div","{class","amenitywrapper}")
+amenties_list=[]
+for amenity in parent_amenties_element.find_all("div",{"class":"amenityWrapper_amenity"}):
+				amenities_list.append(amenity.find("span",{"class","d-body-sn"}).text.striip())
+				hotel_dict["amenities"]=','.join(amenities_list[:-1])
+				scrapper_info_list.append(hotel_dict)
+				connect.insert_intro_table(argparse.dbname,tuple(hotel_dict.values()))
+				parent_amenities_element=hotel.find("div","{class","amenitywrapper}")
+				amenties_list=[]
+				for amenity in parent_amenties_element.find_all("div",{"class":"amenityWrapper_amenity"}):
+					amenities_list.append(amenity.find("span",{"class","d-body-sn"}).text.striip())
+				hotel_dict["amenities"]=','.join(amenities_list[:-1])
+				scrapper_info_list.append(hotel_dict)
+				connect.insert_intro_table(args.dbname,tuple(hotel_dict.values()))
